@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useContext } from "react";
 import { View, StyleSheet, Button, FlatList, Text } from "react-native"
 import PlayerContext from "../../context/PlayerContext";
+import CardStadium from "../../components/cards/CardStadium";
 
 const EventInfo = () => {
     const { players } = useContext(PlayerContext);
@@ -12,8 +13,7 @@ const EventInfo = () => {
     return (
         <View style={styles.container}>
             <Button title="Jugadores" onPress={handleBtnPlayer}></Button>
-            <Button title="Fecha"></Button>
-            <Button title="Cancha"></Button>
+            <CardStadium />
             {players.length > 0 ? <FlatList data={players} renderItem={({ item }) => <Text style={styles.items}>{item.name} {item.email}</Text>} keyExtractor={item => item.name} /> : null}
         </View>
     );
