@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { FlatList, Text, StyleSheet } from "react-native";
-import useApiShift from "../../hooks/useApiShift";
+import useApiShift, { ShiftType } from "../../hooks/useApiShift";
 
 interface PropsType {
-    stadiumId: number
+    stadiumId: number,
+    setShift: (action: string, shift: ShiftType) => void
 }
-const StadiumShiftList = ({ stadiumId }: PropsType) => {
+const StadiumShiftList = ({ stadiumId, setShift }: PropsType) => {
     const urlShift = "http://localhost:5041/Shift";
     const { dataShift, loadingShift, errorShift, getShiftById } = useApiShift(urlShift);
     useEffect(() => {
@@ -16,7 +17,7 @@ const StadiumShiftList = ({ stadiumId }: PropsType) => {
     return (
         <>
             <Text style={styles.items}>Turnos disponibles</Text>
-            {dataShift.length > 0 ? <FlatList data={dataShift} renderItem={({ item }) => <Text style={styles.items}>{item.day} {item.price}</Text>} keyExtractor={item => item.day} /> : null}
+            {dataShift.length > 0 ? <FlatList data={dataShift} renderItem={({ item }) => <Text style={styles.items} onPress={() => setShift('change_shift', item)}>{item.day} {item.price}</Text>} keyExtractor={item => item.day} /> : null}
         </>
     );
 };

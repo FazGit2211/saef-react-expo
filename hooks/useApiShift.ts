@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-interface ShiftType {
+export interface ShiftType {
     day: string,
     time: string,
     price: number
