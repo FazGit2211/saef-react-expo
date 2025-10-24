@@ -16,15 +16,17 @@ const useForm = ({ initialForm }: FormType) => {
     //Inicializar form con valores vacios
     const [form, setForm] = useState<PlayerType>(initialForm);
     //Estado para obtener los errores
-    const [errorInfo, setErrorInfo] = useState<ErrorType>({ errorValue: true, name: "", email: "", state: ""});
+    const [errorInfo, setErrorInfo] = useState<ErrorType>({ errorValue: true, name: "", email: "", state: "" });
     //Expreciones regulares
     const regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
     //Funciones para detectar el ingreso de datos en los inputs
     const handleChangeName = (e: string) => {
-        setForm({
-            ...form, name: e
-        });
+        if (e.trim() !== "") {
+            setForm({
+                ...form, name: e
+            });
+        }
     };
 
     const handleBlurName = () => {
@@ -38,9 +40,11 @@ const useForm = ({ initialForm }: FormType) => {
     };
 
     const handleChangeEmail = (e: string) => {
-        setForm({
-            ...form, email: e
-        });
+        if (e.trim() !== "") {
+            setForm({
+                ...form, email: e
+            });
+        }
     };
 
     const handleBlurEmail = () => {
@@ -65,7 +69,7 @@ const useForm = ({ initialForm }: FormType) => {
         };
     };
 
-    return { form, errorInfo, setForm, handleChangeName, handleBlurName, handleChangeEmail, handleBlurEmail, handleChangeState, handleBlurState}
+    return { form, errorInfo, setForm, handleChangeName, handleBlurName, handleChangeEmail, handleBlurEmail, handleChangeState, handleBlurState }
 }
 
 export default useForm;

@@ -6,9 +6,10 @@ import PlayerContext from "../../context/PlayerContext";
 const FormCreate = () => {
     const { addPlayer, playerEdit } = useContext(PlayerContext);
     const initialState: FormType = { initialForm: { id: playerEdit.id, name: playerEdit.name, email: playerEdit.email, state: playerEdit.state } };
-    const { form, handleChangeName, handleChangeEmail } = useForm(initialState);
+    const { form, handleChangeName, handleChangeEmail, setForm } = useForm(initialState);
     const handleSaveBtn = () => {
         addPlayer({ id: form.id, name: form.name, email: form.email, state: form.state });
+        setForm({ id: 0, name: "", email: "", state: "" });
     }
     return (
         <>

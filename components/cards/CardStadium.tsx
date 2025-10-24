@@ -1,38 +1,28 @@
-import { View, Text } from "react-native"
+import { View, Button, Text } from "react-native"
 import StadiumList from "../lists/StadiumList";
-import { useReducer, useState } from "react";
 import StadiumShiftList from "../lists/StadiumShiftList";
+import { useContext, useState } from "react";
+import { StadiumType } from "../../hooks/useApiStadium";
 import { ShiftType } from "../../hooks/useApiShift";
-interface ActionType {
-    type: string,
-    payload: ShiftType
-};
-const initialState: ShiftType = { day: "", time: "", price: 0 };
-const types = {
-    changeShift: 'change_shift'
-}
-function reducer(shift: ShiftType, action: ActionType) {
-    switch (action.type) {
-        case types.changeShift: {
-            return {
-                day: shift.day,
-                time: shift.time,
-                price: shift.price
-            };
-        }
-        default:
-            return shift;
-    };
-}
+import EventContext from "../../context/EventContext";
+import { useRouter } from "expo-router";
 
 const CardStadium = () => {
-    const [selectStadium, setSelectStadium] = useState(0);
-    const [shift, dispatch] = useReducer(reducer, initialState);
+    const { addShift, addStadium } = useContext(EventContext);
+    const router = useRouter();
+    const [stadiumSelected, setSelectedStadium] = useState<StadiumType>({ id: 0, name: "", address: "" });
+    const [shiftSelected, setSelectedShift] = useState<ShiftType>({ day: "", time: "", price: 0 });
+    const handleBtnConfirm = () => {
+        addShift(shiftSelected);
+        addStadium(stadiumSelected);
+        router.push("/event/eventInfo");
+    }
     return (
         <View>
-            <StadiumList selectedStadium={selectStadium} setSelectedStadium={setSelectStadium} />
-            <StadiumShiftList stadiumId={selectStadium} setShift={() => dispatch} />
-            <Text>{shift.day} {shift.price} {shift.time}</Text>
+            <StadiumList stadium={stadiumSelected} setStadium={setSelectedStadium} shift={shiftSelected} setShift={setSelectedShift} />
+            <StadiumShiftList stadium={stadiumSelected} setShift={setSelectedShift} shift={shiftSelected} setStadium={setSelectedStadium} />
+            <Text>{stadiumSelected.name} {stadiumSelected.address} {shiftSelected.day} {shiftSelected.time} {shiftSelected.price}</Text>
+            {stadiumSelected.name !== "" && shiftSelected.day !== "" ? <Button title="Confirmar turno." onPress={handleBtnConfirm}></Button> : null}
         </View>
     );
 };

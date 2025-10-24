@@ -3,14 +3,17 @@ import { StatusBar } from "expo-status-bar";
 import { Slot } from "expo-router";
 import { PlayerProvider } from "../context/PlayerContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { EventProvider } from "../context/EventContext";
 const Layout = () => {
     return (
         <SafeAreaProvider>
             <View style={styles.container}>
                 <StatusBar style="auto" />
-                <PlayerProvider>
-                    <Slot />
-                </PlayerProvider>
+                <EventProvider>
+                    <PlayerProvider>
+                        <Slot />
+                    </PlayerProvider>
+                </EventProvider>
             </View>
         </SafeAreaProvider>
     );

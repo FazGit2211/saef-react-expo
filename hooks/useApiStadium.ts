@@ -4,7 +4,7 @@ interface ErrorStadiumType {
     message: string
 };
 
-interface StadiumType {
+export interface StadiumType {
     id: number,
     name: string,
     address: string,
