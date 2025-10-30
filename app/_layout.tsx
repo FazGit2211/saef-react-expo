@@ -8,8 +8,8 @@ import Header from "../components/headers/Header";
 const Layout = () => {
     return (
         <SafeAreaProvider>
+            <StatusBar style="auto" />
             <View style={styles.container}>
-                <StatusBar style="auto" />
                 <EventProvider>
                     <PlayerProvider>
                         <Header />
@@ -22,14 +22,10 @@ const Layout = () => {
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
+        flex: 1,        
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        backgroundColor: 'black',
-    },
-    slot: {
-        flexGrow: 1
+        backgroundColor:'black'
     }
 })
 export default Layout;

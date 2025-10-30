@@ -1,29 +1,18 @@
 import { useRouter } from "expo-router";
-import { Button, Image, Text, View, StyleSheet } from "react-native"
-
+import { Appbar } from "react-native-paper";
 const Header = () => {
     const router = useRouter();
-    const handleBtnPlayer = () => {
-        router.push("/player/playerInfo");
-    }
-    const handleBtnShift = () => {
-        router.push("/shift/shiftInfo");
+    const handleBackAct = () => {
+        router.push("/");
+    };
+    const handleAccountBtn = () => {
+        router.push("auth/Auth")
     }
     return (
-        <View>
-            <Text>Header</Text>
-            <Image source={require('../../assets/FNº5.png')} style={styles.img} alt="Logo de futbol"></Image>
-            <Button onPress={() => router.push("/event/eventInfo")} title="Nuevo" />
-            <Button title="Jugadores" onPress={handleBtnPlayer}></Button>
-            <Button title="Turnos" onPress={handleBtnShift}></Button>
-        </View>
+        <Appbar.Header>
+            <Appbar.BackAction onPress={handleBackAct}></Appbar.BackAction>
+            <Appbar.Action icon="account-circle" onPress={handleAccountBtn}></Appbar.Action>
+        </Appbar.Header>
     );
 };
-const styles = StyleSheet.create({
-    img: {
-        width: 100,
-        height: 100,
-        borderRadius: 5
-    }
-})
 export default Header;

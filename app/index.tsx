@@ -1,7 +1,10 @@
+import { PaperProvider } from "react-native-paper";
 import Main from "../components/Main";
 const Index = () => {
     return (
-        <Main />
+        <PaperProvider>
+            <Main />
+        </PaperProvider>
     );
 };
 export default Index;
