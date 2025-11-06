@@ -6,6 +6,7 @@ import { StadiumType } from "../../hooks/useApiStadium";
 import { ShiftType } from "../../hooks/useApiShift";
 import EventContext from "../../context/EventContext";
 import { useRouter } from "expo-router";
+import CardCalendar from "./CardCalendar";
 
 const CardStadium = () => {
     const { addShift, addStadium } = useContext(EventContext);
