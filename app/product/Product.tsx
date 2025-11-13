@@ -1,27 +1,27 @@
-import { View } from "react-native"
-import { Text } from "react-native-paper"
-import useApiProduct from "../../hooks/useApiProduct";
-import { useContext, useEffect } from "react";
-import ProductContext, { ProductType } from "../../context/ProductContext";
+import { ScrollView, Image } from "react-native"
+import CardProduct from "../../components/cards/CardProduct";
+import { Button, Card } from "react-native-paper";
+import { useState } from "react";
 
 const Product = () => {
-    const url = "http://localhost:8080/";
-    const { dataProduct, errorProduct, loadingProduct, getAllProduct } = useApiProduct(url);
-    const { product, addProduct } = useContext(ProductContext);
-
-    useEffect(() => {
-        getAllProduct();
-    }, [dataProduct])
-    if(dataProduct.length > 0){
-        for(let i = 0; i < dataProduct.length;i++){
-            addProduct(dataProduct[i]);
-        }
-    }
+    const [show, setShow] = useState(false);
+    const [category, setCategory] = useState("");
     return (
-        <View>
-            <Text>List Products</Text>
-            
-        </View>
+        <ScrollView>
+            <Card>
+                <Card.Content>
+                    <Image source={require('../../assets/tshirt.jpg')}></Image>
+                    <Image source={require('../../assets/footwears.jpg')}></Image>
+                    <Image source={require('../../assets/pants.jpg')}></Image>
+                </Card.Content>
+                <Card.Actions>
+                    <Button mode="contained" icon="cart" onPress={() => { setShow(!show); setCategory("tshirt") }}>Ver camisetas</Button>
+                    <Button mode="contained" icon="cart" onPress={() => { setShow(!show); setCategory("pant") }}>Ver pantalones</Button>
+                    <Button mode="contained" icon="cart" onPress={() => { setShow(!show); setCategory("footwears") }}>Ver calzados</Button>
+                </Card.Actions>
+            </Card>
+            {show ? <CardProduct url={category} /> : null}
+        </ScrollView>
     );
 };
 export default Product;

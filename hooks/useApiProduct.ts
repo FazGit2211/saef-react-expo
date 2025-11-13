@@ -14,7 +14,7 @@ const useApiProduct = (url: string) => {
             setLoadingProduct(true);
             const options: RequestInit = {
                 method: "GET",
-                headers: { "content-type": "application/json" },
+                headers: { "content-type": "application/json","Access-Control-Allow-Origin":"*" },
             };
             const response = await fetch(url, options);
             if (response.ok) {
